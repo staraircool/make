@@ -31,10 +31,10 @@ export default function Lookbook() {
     <section className="w-full bg-white py-32 px-4 md:px-10 lg:px-20 relative z-10">
       <div className="max-w-7xl mx-auto">
         <div className="mb-20 text-center md:text-left">
-          <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-black">
-            The <span className="text-accent">Lookbook</span>
+          <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-accent drop-shadow-sm">
+            The Lookbook
           </h2>
-          <p className="mt-4 text-xl text-black/60 font-medium max-w-xl">
+          <p className="mt-4 text-xl text-pink-500/80 font-medium max-w-xl tracking-wide">
             Signature styles crafted at 4AM Hair Studio. Where precision meets vibrant creativity.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function Lookbook() {
             >
               {/* Image Container */}
               <div className="w-full md:w-1/2 relative group overflow-hidden">
-                <div className="aspect-[3/4] md:aspect-[4/5] relative overflow-hidden rounded-md">
+                <div className="aspect-[3/4] md:aspect-[4/5] relative overflow-hidden rounded-3xl shadow-[0_20px_50px_rgba(255,0,127,0.15)] border-2 border-accent/10">
                   <motion.div 
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.7, ease: "easeOut" }}
@@ -61,7 +61,7 @@ export default function Lookbook() {
                       src={look.img}
                       alt={look.title}
                       fill
-                      className="object-cover"
+                      className="object-cover mix-blend-multiply"
                     />
                     <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-color" />
                   </motion.div>
@@ -70,10 +70,10 @@ export default function Lookbook() {
 
               {/* Text Container */}
               <div className="w-full md:w-1/2 flex flex-col justify-center">
-                <h3 className="text-3xl md:text-5xl font-black uppercase mb-6 text-black tracking-tight">
+                <h3 className="text-3xl md:text-5xl font-black uppercase mb-6 text-accent tracking-tight drop-shadow-sm">
                   {look.title}
                 </h3>
-                <p className="text-lg md:text-xl text-black/70 leading-relaxed font-medium">
+                <p className="text-lg md:text-xl text-pink-500/80 leading-relaxed font-medium">
                   {look.desc}
                 </p>
                 

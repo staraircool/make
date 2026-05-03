@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import SmokeEffect from "./SmokeEffect";
 
 export default function Hero() {
   const container = useRef(null);
@@ -16,30 +17,33 @@ export default function Hero() {
 
   return (
     <section ref={container} className="relative h-screen w-full overflow-hidden bg-white flex items-center justify-center">
+      {/* Three.js Smoke Background */}
+      <SmokeEffect />
+
       {/* Background Image Parallax */}
-      <motion.div style={{ y, opacity }} className="absolute inset-0 w-full h-full">
+      <motion.div style={{ y, opacity }} className="absolute inset-0 w-full h-full z-[1]">
         <Image
           src="/assets/images/hero.png"
           alt="4AM Hair Studio Hero"
           fill
-          className="object-cover object-center opacity-40 mix-blend-multiply"
+          className="object-cover object-center opacity-30 mix-blend-multiply"
           priority
         />
-        {/* Colorful accent gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 to-transparent mix-blend-overlay pointer-events-none" />
+        {/* Pink accent gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-accent/10 pointer-events-none" />
       </motion.div>
 
       {/* Hero Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-4">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.215, 0.61, 0.355, 1] }}
+          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.2, ease: [0.215, 0.61, 0.355, 1] }}
           className="overflow-hidden"
         >
-          <h1 className="text-7xl md:text-9xl font-black text-black tracking-tighter uppercase leading-[0.8]">
+          <h1 className="text-7xl md:text-9xl font-black text-accent tracking-tighter uppercase leading-[0.8] drop-shadow-sm">
             4AM <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-pink-300 drop-shadow-md">
               Studio
             </span>
           </h1>
@@ -49,12 +53,12 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-8 flex flex-col items-center gap-4"
+          className="mt-8 flex flex-col items-center gap-6"
         >
-          <p className="text-lg md:text-xl text-black/70 max-w-md font-medium">
+          <p className="text-xl md:text-2xl text-pink-500/80 max-w-md font-medium tracking-wide">
             Elevating your look with modern aesthetics and colorful vibrancy.
           </p>
-          <button className="group relative px-8 py-4 bg-black text-white font-bold uppercase tracking-widest overflow-hidden rounded-full hover:scale-105 transition-transform duration-300">
+          <button className="group relative px-10 py-5 bg-white border-2 border-accent text-accent font-bold uppercase tracking-widest overflow-hidden rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_40px_rgba(255,0,127,0.3)] hover:shadow-[0_0_60px_rgba(255,0,127,0.5)]">
             <div className="absolute inset-0 bg-accent translate-y-[100%] group-hover:translate-y-[0%] transition-transform duration-300 ease-out" />
             <span className="relative z-10 group-hover:text-white transition-colors">Book Appointment</span>
           </button>

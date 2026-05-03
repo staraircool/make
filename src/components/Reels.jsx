@@ -41,21 +41,18 @@ export default function Reels() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="h-screen w-full bg-[#f8f8f8] overflow-hidden relative">
-      <div className="absolute top-10 left-10 z-10 mix-blend-difference">
-        <h2 className="text-5xl md:text-8xl font-black text-white uppercase tracking-tighter">
-          The <span className="text-accent">Reels</span>
+    <section ref={sectionRef} className="relative h-screen bg-white text-accent overflow-hidden">
+      <div className="absolute top-10 left-10 z-10">
+        <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter drop-shadow-md">
+          The <br /> Experience
         </h2>
       </div>
 
-      <div ref={containerRef} className="h-full flex items-center gap-10 px-[10vw] pt-[10vh]">
-        {videos.map((src, idx) => (
-          <motion.div 
-            key={idx}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="relative h-[70vh] min-w-[300px] md:min-w-[400px] shrink-0 rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
+      <div ref={containerRef} className="flex h-full w-[300vw] items-center pl-[20vw] md:pl-[30vw]">
+        {videos.map((src, index) => (
+          <div 
+            key={index} 
+            className="panel relative h-[60vh] md:h-[75vh] w-[70vw] md:w-[35vw] flex-shrink-0 mx-4 md:mx-8 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(255,0,127,0.2)] border-2 border-accent/20"
           >
             <video 
               src={src} 
@@ -63,14 +60,16 @@ export default function Reels() {
               muted 
               loop 
               playsInline
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
             />
-            {/* Colorful overlay on hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-accent/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-6 left-6 text-white font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
-              Play Video
+            {/* Pink gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-accent/50 to-transparent opacity-80" />
+            <div className="absolute bottom-8 left-8">
+              <span className="bg-white text-accent px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase shadow-md">
+                Look 0{index + 1}
+              </span>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

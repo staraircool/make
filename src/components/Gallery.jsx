@@ -40,14 +40,15 @@ export default function Gallery() {
   };
 
   return (
-    <section ref={containerRef} className="py-32 w-full bg-black text-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/assets/images/hero.png')] bg-cover bg-center opacity-10 pointer-events-none mix-blend-screen" />
+    <section ref={containerRef} className="py-32 w-full bg-white text-accent relative overflow-hidden">
+      {/* Soft pink ambient gradient instead of dark hero image */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-pink-50 to-white opacity-80 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 md:px-10 mb-20 text-center relative z-10">
-        <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter">
-          The <span className="text-accent">Gallery</span>
+        <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter drop-shadow-sm">
+          The Gallery
         </h2>
-        <p className="mt-4 text-xl text-white/60 font-medium">
+        <p className="mt-4 text-xl text-pink-500/80 font-medium tracking-wide">
           Angles, precision, and artistry.
         </p>
       </div>

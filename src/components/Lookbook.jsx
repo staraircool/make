@@ -31,14 +31,20 @@ export default function Lookbook() {
   return (
     <section className="w-full bg-white text-black py-32 px-4 md:px-10 lg:px-20 relative z-10">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-20 text-center md:text-left border-b border-black/10 pb-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-20 text-center md:text-left border-b border-black/10 pb-10"
+        >
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-black/50 mb-4">
             03 // The Archive
           </p>
           <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter">
             Signature <br/> Styles
           </h2>
-        </div>
+        </motion.div>
 
         <div className="flex flex-col gap-32 mt-20">
           {looks.map((look, idx) => (
@@ -75,7 +81,7 @@ function LookCard({ look, idx }) {
       </div>
 
       {/* Image Container */}
-      <div className="w-full md:w-1/2 relative group overflow-hidden">
+      <div className="w-full md:w-1/2 relative group overflow-hidden shadow-2xl">
         <div className="aspect-[3/4] md:aspect-[4/5] relative overflow-hidden bg-black/5">
           <motion.div 
             style={{ y }}
@@ -90,7 +96,7 @@ function LookCard({ look, idx }) {
                 src={look.img}
                 alt={look.title}
                 fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="object-cover transition-all duration-700 brightness-95 group-hover:brightness-110"
               />
             </motion.div>
           </motion.div>

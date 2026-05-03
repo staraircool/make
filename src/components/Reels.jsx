@@ -10,11 +10,11 @@ export default function Reels() {
   const containerRef = useRef(null);
 
   const videos = [
-    "/assets/images/reel-video.mp4",
-    "/assets/images/reel3.mp4",
-    "/assets/images/reel4.mp4",
-    "/assets/images/reel5.mp4",
-    "/assets/images/reel6.mp4",
+    "https://varpec.sfo3.cdn.digitaloceanspaces.com/4am/reel-video.mp4",
+    "https://varpec.sfo3.cdn.digitaloceanspaces.com/4am/reel3.mp4",
+    "https://varpec.sfo3.cdn.digitaloceanspaces.com/4am/reel4.mp4",
+    "https://varpec.sfo3.cdn.digitaloceanspaces.com/4am/reel5.mp4",
+    "https://varpec.sfo3.cdn.digitaloceanspaces.com/4am/reel6.mp4",
   ];
 
   useEffect(() => {
@@ -37,25 +37,7 @@ export default function Reels() {
       });
     }, sectionRef);
 
-    // Intersection Observer to play/pause videos based on visibility
-    const videoElements = containerRef.current.querySelectorAll("video");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const video = entry.target;
-        if (entry.isIntersecting) {
-          video.play().catch(() => {}); // catch autoplay restrictions safely
-        } else {
-          video.pause();
-        }
-      });
-    }, { threshold: 0.5 }); // Play when 50% visible
-
-    videoElements.forEach((vid) => observer.observe(vid));
-
-    return () => {
-      ctx.revert();
-      observer.disconnect();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -74,19 +56,12 @@ export default function Reels() {
           >
             <video 
               src={src} 
-              preload="metadata"
+              autoPlay
               muted 
               loop 
               playsInline
               className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
             />
-            {/* Pink gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-accent/50 to-transparent opacity-80" />
-            <div className="absolute bottom-8 left-8">
-              <span className="bg-white text-accent px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase shadow-md">
-                Look 0{index + 1}
-              </span>
-            </div>
           </div>
         ))}
       </div>

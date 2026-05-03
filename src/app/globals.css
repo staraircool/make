@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #ff007f;
-  --accent-color: #ff007f; /* A vibrant pinkish red for colorful accents */
+  --background: #000000;
+  --foreground: #ffffff;
+  --accent-color: #ffffff; 
 }
 
 @theme inline {

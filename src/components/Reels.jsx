@@ -1,11 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-
 export default function Reels() {
-  const containerRef = useRef(null);
-
   const videos = [
     "https://varpec.sfo3.cdn.digitaloceanspaces.com/4am/reel-video.mp4",
     "https://varpec.sfo3.cdn.digitaloceanspaces.com/4am/reel3.mp4",
@@ -14,74 +9,62 @@ export default function Reels() {
     "https://varpec.sfo3.cdn.digitaloceanspaces.com/4am/reel6.mp4",
   ];
 
-  return (
-    <section ref={containerRef} className="relative w-full bg-white text-accent pb-32">
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center -z-10 pointer-events-none">
-        <h2 className="text-[12vw] font-black uppercase tracking-tighter opacity-5">
-          Showcase
-        </h2>
-      </div>
+  // Duplicate for seamless marquee
+  const marqueeVideos = [...videos, ...videos];
 
-      <div className="max-w-5xl mx-auto px-4 relative mt-[-100vh]">
-        <div className="mb-32 text-center">
-          <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter drop-shadow-md">
-            The <br /> Experience
+  return (
+    <section className="relative w-full bg-black text-white py-32 overflow-hidden border-t border-white/20">
+      <div className="max-w-7xl mx-auto px-4 md:px-10 mb-20 flex flex-col md:flex-row items-end justify-between">
+        <div>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-white/50 mb-4">
+            02 // The Movement
+          </p>
+          <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter">
+            Living <br /> Portfolios
           </h2>
         </div>
+        <p className="text-white/70 max-w-sm font-medium mt-6 md:mt-0">
+          A dynamic look at our creations in motion. The true test of a cut is how it moves in the real world.
+        </p>
+      </div>
 
-        <div className="flex flex-col gap-[10vh]">
-          {videos.map((src, index) => {
-            return (
-              <Card 
-                key={index} 
+      {/* Marquee Container */}
+      <div className="relative w-full flex overflow-hidden group">
+        <div className="flex animate-marquee group-hover:[animation-play-state:paused]">
+          {marqueeVideos.map((src, index) => (
+            <div 
+              key={index} 
+              className="relative w-[70vw] md:w-[30vw] h-[60vh] md:h-[70vh] flex-shrink-0 mx-4 overflow-hidden bg-zinc-900 border border-white/10"
+            >
+              <video 
                 src={src} 
-                index={index} 
-                total={videos.length} 
+                autoPlay
+                muted 
+                loop 
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-700"
               />
-            );
-          })}
+              <div className="absolute bottom-6 left-6 mix-blend-difference text-white pointer-events-none">
+                <span className="text-xs font-bold tracking-[0.2em] uppercase">
+                  Look {String((index % videos.length) + 1).padStart(2, '0')}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
+      
+      {/* Custom Keyframes for Marquee */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes marquee {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 30s linear infinite;
+          width: max-content;
+        }
+      `}} />
     </section>
-  );
-}
-
-function Card({ src, index, total }) {
-  const cardRef = useRef(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "start top"]
-  });
-
-  // Calculate the scale and top offset so they stack nicely
-  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 1]);
-  
-  return (
-    <div 
-      className="sticky flex items-center justify-center w-full h-[80vh]"
-      style={{ top: `calc(10vh + ${index * 20}px)` }}
-    >
-      <motion.div 
-        ref={cardRef}
-        style={{ scale, opacity }}
-        className="relative w-full md:w-[60%] h-[70vh] rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(255,0,127,0.3)] border border-accent/30 origin-top bg-black"
-      >
-        <video 
-          src={src} 
-          autoPlay
-          muted 
-          loop 
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-90"
-        />
-        <div className="absolute top-6 left-6 mix-blend-difference text-white">
-          <span className="text-sm font-bold tracking-widest uppercase">
-            Look 0{index + 1}
-          </span>
-        </div>
-      </motion.div>
-    </div>
   );
 }

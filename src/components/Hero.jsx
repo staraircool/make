@@ -1,40 +1,27 @@
 "use client";
 
-import { useRef } from "react";
-import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import SmokeEffect from "./SmokeEffect";
+import { motion } from "framer-motion";
 
 export default function Hero() {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0vh", "50vh"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
   return (
-    <section ref={container} className="relative h-screen w-full overflow-hidden bg-white flex items-center justify-center">
-      {/* Three.js Smoke Background */}
-      <SmokeEffect />
-
-      {/* Background Image Parallax */}
-      <motion.div style={{ y, opacity }} className="absolute inset-0 w-full h-full z-[1]">
-        <Image
-          src="/assets/images/hero.png"
-          alt="4AM Hair Studio Hero"
-          fill
-          className="object-cover object-center opacity-30 mix-blend-multiply"
-          priority
-        />
-        {/* Pink accent gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-accent/10 pointer-events-none" />
-      </motion.div>
+    <section className="relative w-full h-[100svh] flex flex-col justify-center bg-black text-white overflow-hidden px-4 md:px-10">
+      
+      {/* Background Texture/Noise */}
+      <div className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
 
       {/* Hero Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4 mt-20">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 2.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6 overflow-hidden"
+        >
+          <p className="text-sm md:text-base font-bold tracking-[0.2em] uppercase text-white/70">
+            Est. 2024 — Mastery in Every Cut
+          </p>
+        </motion.div>
+
         <motion.h1 
           initial="hidden"
           animate="visible"
@@ -42,32 +29,44 @@ export default function Hero() {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.1, delayChildren: 2.5 } // delay for preloader
+              transition: { staggerChildren: 0.05, delayChildren: 2.5 }
             }
           }}
-          className="text-7xl md:text-9xl font-black text-accent tracking-tighter uppercase leading-[0.8] drop-shadow-sm flex flex-col items-center"
+          className="text-[14vw] md:text-[9vw] font-black tracking-tighter uppercase leading-[0.85] flex flex-col"
         >
           <span className="flex overflow-hidden">
-            {["4", "A", "M"].map((char, i) => (
+            {["T", "H", "E", "\u00A0", "#", "1"].map((char, i) => (
               <motion.span
-                key={i}
+                key={`line1-${i}`}
                 variants={{
                   hidden: { y: "100%", opacity: 0 },
-                  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }
+                  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
                 }}
               >
                 {char}
               </motion.span>
             ))}
           </span>
-          
-          <span className="flex overflow-hidden text-transparent bg-clip-text bg-gradient-to-r from-accent to-pink-300 drop-shadow-md pb-4">
-            {["S", "T", "U", "D", "I", "O"].map((char, i) => (
+          <span className="flex overflow-hidden text-white/50">
+            {["S", "A", "L", "O", "N", "\u00A0", "I", "N"].map((char, i) => (
               <motion.span
-                key={i}
+                key={`line2-${i}`}
                 variants={{
                   hidden: { y: "100%", opacity: 0 },
-                  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }
+                  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+                }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </span>
+          <span className="flex overflow-hidden">
+            {["H", "O", "\u00A0", "C", "H", "I", "\u00A0", "M", "I", "N", "H"].map((char, i) => (
+              <motion.span
+                key={`line3-${i}`}
+                variants={{
+                  hidden: { y: "100%", opacity: 0 },
+                  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
                 }}
               >
                 {char}
@@ -77,17 +76,16 @@ export default function Hero() {
         </motion.h1>
         
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 3 }}
-          className="mt-8 flex flex-col items-center gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 3.5 }}
+          className="mt-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-10 border-t border-white/20 pt-10"
         >
-          <p className="text-xl md:text-2xl text-pink-500/80 max-w-md font-medium tracking-wide">
-            Elevating your look with modern aesthetics and colorful vibrancy.
+          <p className="text-lg md:text-xl text-white/60 max-w-lg font-medium leading-relaxed">
+            Elevating the standard of hair artistry. A sanctuary of modern aesthetics, precision tailoring, and unparalleled service.
           </p>
-          <button className="group relative px-10 py-5 bg-white border-2 border-accent text-accent font-bold uppercase tracking-widest overflow-hidden rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_40px_rgba(255,0,127,0.3)] hover:shadow-[0_0_60px_rgba(255,0,127,0.5)]">
-            <div className="absolute inset-0 bg-accent translate-y-[100%] group-hover:translate-y-[0%] transition-transform duration-300 ease-out" />
-            <span className="relative z-10 group-hover:text-white transition-colors">Book Appointment</span>
+          <button className="group relative px-10 py-5 bg-white text-black font-bold uppercase tracking-widest overflow-hidden rounded-full hover:scale-[1.02] transition-transform duration-300">
+            <span className="relative z-10 transition-colors">Book Appointment</span>
           </button>
         </motion.div>
       </div>
@@ -96,17 +94,10 @@ export default function Hero() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 3.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        transition={{ delay: 4, duration: 1 }}
+        className="absolute bottom-10 right-10 flex flex-col items-center gap-4"
       >
-        <span className="text-xs uppercase tracking-widest font-bold text-accent">Scroll to Discover</span>
-        <div className="w-[2px] h-16 bg-accent/20 relative overflow-hidden">
-          <motion.div 
-            animate={{ y: ["-100%", "100%"] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-            className="absolute top-0 left-0 w-full h-1/2 bg-accent"
-          />
-        </div>
+        <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/50" style={{ writingMode: 'vertical-rl' }}>Scroll to Explore</span>
       </motion.div>
     </section>
   );

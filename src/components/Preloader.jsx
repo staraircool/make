@@ -33,26 +33,26 @@ export default function Preloader() {
       initial={{ y: 0 }}
       animate={{ y: isLoading ? 0 : "-100vh" }}
       transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-      className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center pointer-events-none"
+      className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center pointer-events-none"
     >
       <div className="overflow-hidden mb-4">
         <motion.h1 
           initial={{ y: "100%" }}
           animate={{ y: 0 }}
           transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-          className="text-6xl md:text-9xl font-black text-accent tracking-tighter uppercase"
+          className="text-6xl md:text-9xl font-black text-white tracking-tighter uppercase"
         >
           4AM STUDIO
         </motion.h1>
       </div>
-      <div className="w-64 md:w-96 h-1 bg-gray-200 rounded-full overflow-hidden">
+      <div className="w-64 md:w-96 h-1 bg-white/20 rounded-full overflow-hidden">
         <motion.div 
-          className="h-full bg-accent"
+          className="h-full bg-white"
           style={{ width: `${progress}%` }}
           transition={{ ease: "linear" }}
         />
       </div>
-      <div className="mt-4 text-accent font-bold tracking-widest text-sm">
+      <div className="mt-4 text-white font-bold tracking-widest text-sm">
         {Math.round(progress)}%
       </div>
     </motion.div>

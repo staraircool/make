@@ -40,26 +40,26 @@ export default function Gallery() {
   };
 
   return (
-    <section ref={containerRef} className="py-32 w-full bg-white text-accent relative overflow-hidden">
-      {/* Soft pink ambient gradient instead of dark hero image */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-pink-50 to-white opacity-80 pointer-events-none" />
+    <section ref={containerRef} className="py-32 w-full bg-black text-white relative overflow-hidden border-t border-white/20">
       
-      <div className="max-w-7xl mx-auto px-4 md:px-10 mb-20 text-center relative z-10">
-        <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter drop-shadow-sm">
+      {/* Texture */}
+      <div className="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
+      
+      <div className="max-w-7xl mx-auto px-4 md:px-10 mb-20 relative z-10 flex flex-col items-center text-center">
+        <p className="text-sm font-bold uppercase tracking-[0.2em] text-white/50 mb-4">
+          04 // The Visuals
+        </p>
+        <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter">
           The Gallery
         </h2>
-        <p className="mt-4 text-xl text-pink-500/80 font-medium tracking-wide">
-          Angles, precision, and artistry.
-        </p>
       </div>
 
       <div className="flex justify-center gap-4 md:gap-8 px-4 h-[120vh] md:h-[150vh] overflow-hidden relative z-10">
         {/* Column 1 */}
         <motion.div style={{ y: y1 }} className="flex flex-col gap-4 md:gap-8 w-1/3 md:w-1/4 pt-20">
           {images.col1.map((src, i) => (
-            <div key={i} className="relative aspect-[3/4] w-full rounded-lg overflow-hidden group">
-              <Image src={src} alt="Gallery image" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-accent/40 mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div key={i} className="relative aspect-[3/4] w-full bg-white/5 overflow-hidden group border border-white/10">
+              <Image src={src} alt="Gallery image" fill className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0" />
             </div>
           ))}
         </motion.div>
@@ -67,9 +67,8 @@ export default function Gallery() {
         {/* Column 2 */}
         <motion.div style={{ y: y2 }} className="flex flex-col gap-4 md:gap-8 w-1/3 md:w-1/4 -mt-[30vh]">
           {images.col2.map((src, i) => (
-            <div key={i} className="relative aspect-[4/5] w-full rounded-lg overflow-hidden group">
-              <Image src={src} alt="Gallery image" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-accent/40 mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div key={i} className="relative aspect-[4/5] w-full bg-white/5 overflow-hidden group border border-white/10">
+              <Image src={src} alt="Gallery image" fill className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0" />
             </div>
           ))}
         </motion.div>
@@ -77,9 +76,8 @@ export default function Gallery() {
         {/* Column 3 */}
         <motion.div style={{ y: y3 }} className="flex flex-col gap-4 md:gap-8 w-1/3 md:w-1/4 pt-40">
           {images.col3.map((src, i) => (
-            <div key={i} className="relative aspect-[3/4] w-full rounded-lg overflow-hidden group">
-              <Image src={src} alt="Gallery image" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-accent/40 mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div key={i} className="relative aspect-[3/4] w-full bg-white/5 overflow-hidden group border border-white/10">
+              <Image src={src} alt="Gallery image" fill className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0" />
             </div>
           ))}
         </motion.div>

@@ -1,6 +1,43 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+
+function VideoItem({ src, index }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "200px" });
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    if (isInView) {
+      setShouldLoad(true);
+    }
+  }, [isInView]);
+
+  return (
+    <div 
+      ref={ref}
+      className="relative w-[70vw] md:w-[30vw] h-[60vh] md:h-[70vh] flex-shrink-0 mx-4 overflow-hidden bg-zinc-900 border border-white/10"
+    >
+      {shouldLoad && (
+        <video 
+          src={src} 
+          autoPlay
+          muted 
+          loop 
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-700"
+        />
+      )}
+      <div className="absolute bottom-6 left-6 mix-blend-difference text-white pointer-events-none z-10">
+        <span className="text-xs font-bold tracking-[0.2em] uppercase">
+          Look {String(index + 1).padStart(2, '0')}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export default function Reels() {
   const videos = [
@@ -46,24 +83,7 @@ export default function Reels() {
       >
         <div className="flex animate-marquee group-hover:[animation-play-state:paused]">
           {marqueeVideos.map((src, index) => (
-            <div 
-              key={index} 
-              className="relative w-[70vw] md:w-[30vw] h-[60vh] md:h-[70vh] flex-shrink-0 mx-4 overflow-hidden bg-zinc-900 border border-white/10"
-            >
-              <video 
-                src={src} 
-                autoPlay
-                muted 
-                loop 
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-700"
-              />
-              <div className="absolute bottom-6 left-6 mix-blend-difference text-white pointer-events-none">
-                <span className="text-xs font-bold tracking-[0.2em] uppercase">
-                  Look {String((index % videos.length) + 1).padStart(2, '0')}
-                </span>
-              </div>
-            </div>
+            <VideoItem key={index} src={src} index={index % videos.length} />
           ))}
         </div>
       </motion.div>

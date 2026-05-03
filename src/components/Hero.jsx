@@ -1,13 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Hero() {
   return (
     <section className="relative w-full h-[100svh] flex flex-col justify-center bg-black text-white overflow-hidden px-4 md:px-10">
       
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image 
+          src="/assets/images/back1.jpg" 
+          alt="Hero Background" 
+          fill 
+          className="object-cover opacity-60" 
+          priority
+        />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
+
       {/* Background Texture/Noise */}
-      <div className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
+      <div className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none z-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
 
       {/* Hero Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col">
@@ -32,7 +45,7 @@ export default function Hero() {
               transition: { staggerChildren: 0.05, delayChildren: 2.5 }
             }
           }}
-          className="text-[14vw] md:text-[9vw] font-black tracking-tighter uppercase leading-[0.85] flex flex-col"
+          className="text-[14vw] md:text-[9vw] font-black tracking-tighter uppercase leading-[0.85] flex flex-col text-white/70 mix-blend-difference"
         >
           <span className="flex overflow-hidden">
             {["T", "H", "E", "\u00A0", "#", "1"].map((char, i) => (
@@ -47,7 +60,7 @@ export default function Hero() {
               </motion.span>
             ))}
           </span>
-          <span className="flex overflow-hidden text-white/50">
+          <span className="flex overflow-hidden text-white/40">
             {["S", "A", "L", "O", "N", "\u00A0", "I", "N"].map((char, i) => (
               <motion.span
                 key={`line2-${i}`}

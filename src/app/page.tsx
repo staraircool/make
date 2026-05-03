@@ -7,7 +7,6 @@ import ServicesMenu from "@/components/ServicesMenu";
 import StylistsProfiles from "@/components/StylistsProfiles";
 import ClientTestimonials from "@/components/ClientTestimonials";
 import LiveAvailability from "@/components/LiveAvailability";
-import VirtualTour from "@/components/VirtualTour";
 import ClientCounter from "@/components/ClientCounter";
 import InstagramFeed from "@/components/InstagramFeed";
 import PriceCalculator from "@/components/PriceCalculator";
@@ -22,7 +21,6 @@ export default function Home() {
       <Reels />
       <ServicesMenu />
       <PriceCalculator />
-      <VirtualTour />
       <ClientCounter />
       <StylistsProfiles />
       <Lookbook />

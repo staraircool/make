@@ -41,7 +41,7 @@ export default function Footer() {
               <a href="https://www.instagram.com/4amhairstudio/" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all text-sm font-bold">
                 IG
               </a>
-              <a href="#" className="w-12 h-12 rounded-full border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all text-sm font-bold">
+              <a href="https://www.facebook.com/4amhairstudio/" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-black/20 flex items-center justify-center hover:bg-black hover:text-white transition-all text-sm font-bold">
                 FB
               </a>
             </div>

@@ -1,36 +1,41 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Cloud, Clouds } from "@react-three/drei";
-import * as THREE from "three";
-import { useRef } from "react";
-
-function SmokeClouds() {
-  const ref = useRef(null);
-  
-  useFrame((state, delta) => {
-    if (ref.current) {
-      ref.current.rotation.y -= delta * 0.02;
-    }
-  });
-
-  return (
-    <group ref={ref}>
-      <Clouds material={THREE.MeshBasicMaterial}>
-        <Cloud segments={40} bounds={[10, 2, 2]} volume={10} color="#ff007f" opacity={0.3} position={[0, -2, -5]} />
-        <Cloud segments={40} bounds={[10, 2, 2]} volume={10} color="#ffb3d9" opacity={0.2} position={[0, 2, -10]} />
-        <Cloud segments={40} bounds={[10, 2, 2]} volume={10} color="#ffffff" opacity={0.4} position={[0, 0, -15]} />
-      </Clouds>
-    </group>
-  );
-}
+import { motion } from "framer-motion";
 
 export default function SmokeEffect() {
   return (
-    <div className="absolute inset-0 pointer-events-none z-0 opacity-60">
-      <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
-        <SmokeClouds />
-      </Canvas>
+    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden mix-blend-screen opacity-60">
+      {/* Animated CSS gradients mimicking smoke/clouds */}
+      <motion.div
+        animate={{
+          x: ["-10%", "10%", "-10%"],
+          y: ["-10%", "5%", "-10%"],
+          rotate: [0, 5, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="absolute -inset-[50%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-400/20 via-white/5 to-transparent blur-[100px]"
+      />
+      
+      <motion.div
+        animate={{
+          x: ["10%", "-10%", "10%"],
+          y: ["5%", "-10%", "5%"],
+          rotate: [0, -5, 0],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="absolute -inset-[50%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-300/30 via-pink-100/10 to-transparent blur-[120px]"
+        style={{ transformOrigin: "center right" }}
+      />
     </div>
   );
 }

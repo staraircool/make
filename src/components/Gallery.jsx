@@ -27,15 +27,15 @@ export default function Gallery() {
     col2: [
       "/assets/images/back3.jpg",
       "/assets/images/side3.jpg",
-      "/assets/images/𝐒𝐈𝐃𝐄 𝐁𝐀𝐍𝐆𝐒 𝐱 𝐏𝐋𝐀𝐓𝐈𝐍𝐔𝐌 𝐁𝐋𝐎𝐍𝐃𝐄.jpg",
-      "/assets/images/𝐒𝐈𝐃𝐄 𝐁𝐀𝐍𝐆𝐒 𝐱 𝐏𝐋𝐀𝐓𝐈𝐍𝐔𝐌 𝐁𝐋𝐎𝐍𝐃𝐄 2.jpg",
+      "/assets/images/look-5.jpg",
+      "/assets/images/look-6.jpg",
     ],
     col3: [
       "/assets/images/back4.jpg",
       "/assets/images/side4.jpg",
       "/assets/images/back6.jpg",
       "/assets/images/side6.jpg",
-      "/assets/images/𝐒𝐈𝐃𝐄 𝐁𝐀𝐍𝐆𝐒 𝐱 𝐏𝐋𝐀𝐓𝐈𝐍𝐔𝐌 𝐁𝐋𝐎𝐍𝐃𝐄 3.jpg",
+      "/assets/images/look-7.jpg",
     ]
   };
 

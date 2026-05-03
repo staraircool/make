@@ -37,7 +37,25 @@ export default function Reels() {
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    // Intersection Observer to play/pause videos based on visibility
+    const videoElements = containerRef.current.querySelectorAll("video");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {}); // catch autoplay restrictions safely
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.5 }); // Play when 50% visible
+
+    videoElements.forEach((vid) => observer.observe(vid));
+
+    return () => {
+      ctx.revert();
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -56,7 +74,7 @@ export default function Reels() {
           >
             <video 
               src={src} 
-              autoPlay 
+              preload="metadata"
               muted 
               loop 
               playsInline

@@ -3,9 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const SmokeEffect = dynamic(() => import("./SmokeEffect"), { ssr: false });
+import SmokeEffect from "./SmokeEffect";
 
 export default function Hero() {
   const container = useRef(null);

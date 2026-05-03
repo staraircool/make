@@ -1,12 +1,9 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function Reels() {
-  const sectionRef = useRef(null);
   const containerRef = useRef(null);
 
   const videos = [
@@ -17,54 +14,74 @@ export default function Reels() {
     "https://varpec.sfo3.cdn.digitaloceanspaces.com/4am/reel6.mp4",
   ];
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    // Horizontal scroll effect
-    const ctx = gsap.context(() => {
-      const scrollWidth = containerRef.current.scrollWidth - window.innerWidth;
-      
-      gsap.to(containerRef.current, {
-        x: -scrollWidth,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: `+=${scrollWidth}`,
-          pin: true,
-          scrub: 1,
-        }
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={sectionRef} className="relative h-screen bg-white text-accent overflow-hidden">
-      <div className="absolute top-10 left-10 z-10">
-        <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter drop-shadow-md">
-          The <br /> Experience
+    <section ref={containerRef} className="relative w-full bg-white text-accent pb-32">
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center -z-10 pointer-events-none">
+        <h2 className="text-[12vw] font-black uppercase tracking-tighter opacity-5">
+          Showcase
         </h2>
       </div>
 
-      <div ref={containerRef} className="flex h-full w-[300vw] items-center pl-[20vw] md:pl-[30vw]">
-        {videos.map((src, index) => (
-          <div 
-            key={index} 
-            className="panel relative h-[60vh] md:h-[75vh] w-[70vw] md:w-[35vw] flex-shrink-0 mx-4 md:mx-8 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(255,0,127,0.2)] border-2 border-accent/20"
-          >
-            <video 
-              src={src} 
-              autoPlay
-              muted 
-              loop 
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
-            />
-          </div>
-        ))}
+      <div className="max-w-5xl mx-auto px-4 relative mt-[-100vh]">
+        <div className="mb-32 text-center">
+          <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter drop-shadow-md">
+            The <br /> Experience
+          </h2>
+        </div>
+
+        <div className="flex flex-col gap-[10vh]">
+          {videos.map((src, index) => {
+            return (
+              <Card 
+                key={index} 
+                src={src} 
+                index={index} 
+                total={videos.length} 
+              />
+            );
+          })}
+        </div>
       </div>
     </section>
+  );
+}
+
+function Card({ src, index, total }) {
+  const cardRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "start top"]
+  });
+
+  // Calculate the scale and top offset so they stack nicely
+  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 1]);
+  
+  return (
+    <div 
+      className="sticky flex items-center justify-center w-full h-[80vh]"
+      style={{ top: `calc(10vh + ${index * 20}px)` }}
+    >
+      <motion.div 
+        ref={cardRef}
+        style={{ scale, opacity }}
+        className="relative w-full md:w-[60%] h-[70vh] rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(255,0,127,0.3)] border border-accent/30 origin-top bg-black"
+      >
+        <video 
+          src={src} 
+          autoPlay
+          muted 
+          loop 
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-90"
+        />
+        <div className="absolute top-6 left-6 mix-blend-difference text-white">
+          <span className="text-sm font-bold tracking-widest uppercase">
+            Look 0{index + 1}
+          </span>
+        </div>
+      </motion.div>
+    </div>
   );
 }

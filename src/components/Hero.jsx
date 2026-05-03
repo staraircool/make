@@ -34,25 +34,52 @@ export default function Hero() {
       </motion.div>
 
       {/* Hero Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 50, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.215, 0.61, 0.355, 1] }}
-          className="overflow-hidden"
+      <div className="relative z-10 flex flex-col items-center text-center px-4 mt-20">
+        <motion.h1 
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1, delayChildren: 2.5 } // delay for preloader
+            }
+          }}
+          className="text-7xl md:text-9xl font-black text-accent tracking-tighter uppercase leading-[0.8] drop-shadow-sm flex flex-col items-center"
         >
-          <h1 className="text-7xl md:text-9xl font-black text-accent tracking-tighter uppercase leading-[0.8] drop-shadow-sm">
-            4AM <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-pink-300 drop-shadow-md">
-              Studio
-            </span>
-          </h1>
-        </motion.div>
+          <span className="flex overflow-hidden">
+            {["4", "A", "M"].map((char, i) => (
+              <motion.span
+                key={i}
+                variants={{
+                  hidden: { y: "100%", opacity: 0 },
+                  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }
+                }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </span>
+          
+          <span className="flex overflow-hidden text-transparent bg-clip-text bg-gradient-to-r from-accent to-pink-300 drop-shadow-md pb-4">
+            {["S", "T", "U", "D", "I", "O"].map((char, i) => (
+              <motion.span
+                key={i}
+                variants={{
+                  hidden: { y: "100%", opacity: 0 },
+                  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }
+                }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </span>
+        </motion.h1>
         
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 3 }}
           className="mt-8 flex flex-col items-center gap-6"
         >
           <p className="text-xl md:text-2xl text-pink-500/80 max-w-md font-medium tracking-wide">
@@ -69,11 +96,11 @@ export default function Hero() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
+        transition={{ delay: 3.5, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-xs uppercase tracking-widest font-bold">Scroll to Discover</span>
-        <div className="w-[2px] h-16 bg-black/20 relative overflow-hidden">
+        <span className="text-xs uppercase tracking-widest font-bold text-accent">Scroll to Discover</span>
+        <div className="w-[2px] h-16 bg-accent/20 relative overflow-hidden">
           <motion.div 
             animate={{ y: ["-100%", "100%"] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}

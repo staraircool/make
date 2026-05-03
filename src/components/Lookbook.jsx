@@ -41,52 +41,80 @@ export default function Lookbook() {
 
         <div className="flex flex-col gap-32">
           {looks.map((look, idx) => (
-            <motion.div 
-              key={idx} 
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className={`flex flex-col md:flex-row items-center gap-10 lg:gap-20 ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
-            >
-              {/* Image Container */}
-              <div className="w-full md:w-1/2 relative group overflow-hidden">
-                <div className="aspect-[3/4] md:aspect-[4/5] relative overflow-hidden rounded-3xl shadow-[0_20px_50px_rgba(255,0,127,0.15)] border-2 border-accent/10">
-                  <motion.div 
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.7, ease: "easeOut" }}
-                    className="w-full h-full relative"
-                  >
-                    <Image
-                      src={look.img}
-                      alt={look.title}
-                      fill
-                      className="object-cover mix-blend-multiply"
-                    />
-                    <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-color" />
-                  </motion.div>
-                </div>
-              </div>
-
-              {/* Text Container */}
-              <div className="w-full md:w-1/2 flex flex-col justify-center">
-                <h3 className="text-3xl md:text-5xl font-black uppercase mb-6 text-accent tracking-tight drop-shadow-sm">
-                  {look.title}
-                </h3>
-                <p className="text-lg md:text-xl text-pink-500/80 leading-relaxed font-medium">
-                  {look.desc}
-                </p>
-                
-                <div className="mt-10">
-                  <button className="text-accent font-bold uppercase tracking-widest relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[2px] after:bg-accent hover:after:w-full after:transition-all after:duration-300">
-                    Get this look
-                  </button>
-                </div>
-              </div>
-            </motion.div>
+            <LookCard key={idx} look={look} idx={idx} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+import { useRef } from "react";
+import { useScroll, useTransform } from "framer-motion";
+
+function LookCard({ look, idx }) {
+  const cardRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  return (
+    <motion.div 
+      ref={cardRef}
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      className={`flex flex-col md:flex-row items-center gap-10 lg:gap-20 ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''} relative`}
+    >
+      {/* Huge background number */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-pink-500/5 -z-10 pointer-events-none tracking-tighter leading-none">
+        0{idx + 1}
+      </div>
+
+      {/* Image Container */}
+      <div className="w-full md:w-1/2 relative group overflow-hidden">
+        <div className="aspect-[3/4] md:aspect-[4/5] relative overflow-hidden rounded-3xl shadow-[0_20px_50px_rgba(255,0,127,0.15)] border-2 border-accent/10">
+          <motion.div 
+            style={{ y }}
+            className="w-full h-[120%] -top-[10%] relative"
+          >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="w-full h-full relative"
+            >
+              <Image
+                src={look.img}
+                alt={look.title}
+                fill
+                className="object-cover mix-blend-multiply"
+              />
+              <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-color" />
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Text Container */}
+      <div className="w-full md:w-1/2 flex flex-col justify-center">
+        <h3 className="text-3xl md:text-5xl font-black uppercase mb-6 text-accent tracking-tight drop-shadow-sm">
+          {look.title}
+        </h3>
+        <p className="text-lg md:text-xl text-pink-500/80 leading-relaxed font-medium">
+          {look.desc}
+        </p>
+        
+        <div className="mt-10">
+          <button className="text-accent font-bold uppercase tracking-widest relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[2px] after:bg-accent hover:after:w-full after:transition-all after:duration-300">
+            Get this look
+          </button>
+        </div>
+      </div>
+    </motion.div>
   );
 }
